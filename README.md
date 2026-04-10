@@ -116,7 +116,7 @@ Detection Logic
 - Event ID 4625 (failed login)
 - Threshold-based detection (5 attempts in 5 minutes)
 
-See: detection/bruteforce_sigma_rule.yml`
+See: `detection/bruteforce_sigma_rule.yml`
 
 
 Conclusion
