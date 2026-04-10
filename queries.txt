@@ -1,0 +1,14 @@
+# Failed logins detection
+source="WinEventLog:Security" EventCode=4625
+| stats count by Account_Name
+
+# Brute force detection
+source="WinEventLog:Security" EventCode=4625
+| stats count by Account_Name
+| where count > 2
+
+# Time-based detection
+source="WinEventLog:Security" EventCode=4625
+| bucket _time span=5m
+| stats count by _time, Account_Name
+| where count > 2
