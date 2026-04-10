@@ -1,0 +1,12 @@
+Brute Force Detection
+source="WinEventLog:Security" EventCode=4625
+| stats count by Account_Name, src_ip
+| where count > 5
+
+Time-based Analysis
+source="WinEventLog:Security" EventCode=4625
+| bin _time span=5m
+| stats count by _time, Account_Name
+
+Account Lockout Detection
+source="WinEventLog:Security" EventCode=4740

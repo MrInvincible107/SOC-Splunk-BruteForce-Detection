@@ -1,0 +1,1 @@
+This folder contains supporting notes and observations related to the project.

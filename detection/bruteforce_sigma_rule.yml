@@ -1,0 +1,59 @@
+title: Suspicious Brute Force Login Attempts
+id: 1b2c3d4e-5678-90ab-cdef-1234567890ab
+status: experimental
+description: Detects multiple failed login attempts indicating possible brute force attack
+author: Saksham Budhiraja
+date: 2026-04-10
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4625
+  condition: selection
+
+fields:
+  - Account_Name
+  - Source_Network_Address
+  - Failure_Reason
+
+falsepositives:
+  - User typing incorrect password multiple times
+  - Misconfigured services
+
+level: medium
+
+tags:
+  - attack.credential_access
+  - attack.t1110
+
+
+title: Brute Force Detection with Threshold
+id: 2c3d4e5f-6789-01ab-cdef-234567890abc
+status: experimental
+description: Detects multiple failed login attempts within a short time window
+author: Saksham Budhiraja
+date: 2026-04-10
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4625
+  timeframe: 5m
+  condition: selection | count() by Account_Name > 5
+
+fields:
+  - Account_Name
+  - Source_Network_Address
+
+falsepositives:
+  - Multiple incorrect password attempts by user
+
+level: high
+
+tags:
+  - attack.credential_access
+  - attack.t1110
